@@ -1,0 +1,40 @@
+﻿@model List<Api_coree.Models.Producto>
+
+@{
+    ViewData["Title"] = "Lista de Productos";
+}
+
+<h2>Lista de Productos</h2>
+
+<a asp-action="Detalle" asp-controller="Producto" asp-route-id="0" class="btn btn-success mb-2">Nuevo Producto</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Código de Barra</th>
+            <th>Nombre</th>
+            <th>Marca</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var producto in Model)
+        {
+            <tr>
+                <td>@producto.CodigoBarra</td>
+                <td>@producto.Nombre</td>
+                <td>@producto.Marca</td>
+                <td>@producto.Categoria</td>
+                <td>@producto.Precio</td>
+                <td>
+                    <a asp-action="Detalle" asp-controller="Producto" asp-route-id="@producto.IdProducto" class="btn btn-primary btn-sm">Editar</a>
+                    <form asp-action="Eliminar" asp-controller="Producto" asp-route-idProducto="@producto.IdProducto" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

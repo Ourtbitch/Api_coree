@@ -1,0 +1,35 @@
+﻿@model Api_coree.Models.Producto
+
+@{
+    ViewData["Title"] = Model.IdProducto == 0 ? "Agregar Nuevo Producto" : "Editar Producto";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="GuardarCambios" asp-controller="Producto" method="post">
+    <input type="hidden" asp-for="IdProducto" />
+
+    <div class="mb-2">
+        <label class="form-label">Código de Barra</label>
+        <input type="text" class="form-control form-control-sm" asp-for="CodigoBarra" />
+    </div>
+    <div class="mb-2">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-control form-control-sm" asp-for="Nombre" />
+    </div>
+    <div class="mb-2">
+        <label class="form-label">Marca</label>
+        <input type="text" class="form-control form-control-sm" asp-for="Marca" />
+    </div>
+    <div class="mb-2">
+        <label class="form-label">Categoría</label>
+        <input type="text" class="form-control form-control-sm" asp-for="Categoria" />
+    </div>
+    <div class="mb-2">
+        <label class="form-label">Precio</label>
+        <input type="text" class="form-control form-control-sm" asp-for="Precio" />
+    </div>
+
+    <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+    <a asp-action="Index" class="btn btn-secondary btn-sm">Cancelar</a>
+</form>
