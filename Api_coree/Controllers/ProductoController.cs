@@ -1,5 +1,6 @@
 ﻿using Api_coree.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Api_coree.Controllers
@@ -26,24 +27,32 @@ namespace Api_coree.Controllers
 
             if (id == 0)
             {
-                // Si el id es 0, significa que estamos creando un nuevo producto
+                // Crear un nuevo producto si el id es 0 (para agregar un producto nuevo)
                 producto = new Producto();
                 ViewBag.Accion = "Agregar Nuevo Producto";
             }
             else
             {
-                // Si el id es distinto de 0, estamos editando un producto existente
+                // Obtener el producto existente para editar si el id no es 0
                 producto = await _productoService.GetProductoAsync(id);
-                ViewBag.Accion = "Editar Producto";
 
                 if (producto == null)
                 {
-                    return NotFound("Producto no encontrado"); // Muestra un error si el producto no existe
+                    return View("Error", new { mensaje = "El producto no existe." });
                 }
+
+                // Imprime los datos del producto para ver si contiene información antes de pasarlo a la vista
+                Console.WriteLine("Producto para editar: " + JsonConvert.SerializeObject(producto));
+
+                ViewBag.Accion = "Editar Producto";
             }
 
-            return View("Detalle", producto); // Pasamos un solo producto a la vista Detalle
+            return View("Detalle", producto);
         }
+
+
+
+
 
 
         [HttpPost]
@@ -53,10 +62,12 @@ namespace Api_coree.Controllers
 
             if (producto.IdProducto == 0)
             {
+                // Crear nuevo producto
                 resultado = await _productoService.GuardarProductoAsync(producto);
             }
             else
             {
+                // Editar producto existente
                 resultado = await _productoService.EditarProductoAsync(producto);
             }
 

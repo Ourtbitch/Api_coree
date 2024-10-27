@@ -30,6 +30,8 @@
                 <td>@producto.Precio</td>
                 <td>
                     <a asp-action="Detalle" asp-controller="Producto" asp-route-id="@producto.IdProducto" class="btn btn-primary btn-sm">Editar</a>
+
+
                     <form asp-action="Eliminar" asp-controller="Producto" asp-route-idProducto="@producto.IdProducto" method="post" style="display:inline;">
                         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
